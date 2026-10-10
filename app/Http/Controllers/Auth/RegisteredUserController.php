@@ -1,0 +1,4 @@
+<?php
+namespace App\Http\Controllers\Auth;
+use App\Http\Controllers\Controller; use App\Models\User; use Illuminate\Http\Request; use Illuminate\Support\Facades\Auth; use Illuminate\Support\Facades\Hash; use Illuminate\Validation\Rules; use Illuminate\Support\Str;
+class RegisteredUserController extends Controller { public function create(){return view('auth.register');} public function store(Request $request){$data=$request->validate(['name'=>'required|string|max:100','username'=>'required|string|alpha_dash|min:3|max:30|unique:users,username','email'=>'required|email:rfc|max:190|unique:users,email','password'=>['required','confirmed',Rules\Password::min(8)->letters()->numbers()]]);$user=User::create($data);Auth::login($user);$request->session()->regenerate();return redirect()->route('dashboard')->with('success','Welcome to ExamConnect.');} }

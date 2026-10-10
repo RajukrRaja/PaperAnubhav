@@ -1,0 +1,3 @@
+<?php
+namespace App\Models; use Illuminate\Database\Eloquent\Model; use Illuminate\Database\Eloquent\Relations\BelongsTo; use Illuminate\Database\Eloquent\Relations\HasMany; use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+class Exam extends Model {protected $fillable=['exam_category_id','name','slug','description','conducting_authority','official_url','logo_path','status','meta_title','meta_description']; public function getRouteKeyName():string{return 'slug';} public function category():BelongsTo{return $this->belongsTo(ExamCategory::class,'exam_category_id');} public function experiences():HasMany{return $this->hasMany(Experience::class);} public function followers():BelongsToMany{return $this->belongsToMany(User::class,'exam_follows')->withTimestamps();} }

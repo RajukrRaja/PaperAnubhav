@@ -1,0 +1,30 @@
+ExamConnect Community + Chat setup
+==================================
+
+This update adds:
+- Community listing and join/leave actions.
+- Membership-protected community chat.
+- Message storage in the database.
+- Near-real-time chat refresh using browser polling every 2.5 seconds.
+- Basic validation, CSRF protection, and rate limiting for sending messages.
+
+Install/update:
+1. Extract this project and open a terminal in the `examconnect` folder.
+2. Ensure `.env` is configured and the database exists.
+3. Run: composer install
+4. Run: php artisan migrate
+5. Run: php artisan optimize:clear
+6. Run: php artisan serve
+7. Log in and open /community.
+
+Note:
+The chat uses polling every 2.5 seconds, not a WebSocket/Pusher connection. This is a lightweight near-real-time implementation that does not require paid services or extra Composer packages. For high traffic/true push-based realtime, configure Laravel Reverb or another WebSocket broadcaster later.
+
+
+FOLLOW, FOLLOW BACK AND DIRECT MESSAGES
+1. Run: php artisan migrate
+2. Profiles for other users show Follow/Following and Message actions when logged in.
+3. A mutual follow is indicated by “Follows you”; use Follow to follow back.
+4. Open /my-followers/followers or /my-followers/following to see your lists.
+5. Open /messages to view conversations; select Message on a profile to start one.
+6. Direct messages are stored in direct_messages. This basic version refreshes on page load; it is not WebSocket/live push chat.
